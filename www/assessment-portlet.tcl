@@ -38,13 +38,13 @@ template::list::create \
     -key assessment_id \
     -elements {
 	title {
-	    label {Assessment}
+	    label {[_ assessment.Assessment]}
 	    link_url_eval {[export_vars -base "$base_url/assessment" {assessment_id}]}
 	    link_html { title {description} }
 	    
 	}
 	session {
-	    label {assessment.Sessions}
+	    label {[_ assessment.Sessions]}
 	    link_url_eval {[export_vars -base "$base_url/sessions" {assessment_id}]}
 	}
     } \
