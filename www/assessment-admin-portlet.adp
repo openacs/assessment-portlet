@@ -1,4 +1,5 @@
 <ul>
-  <li><a href="@url@admin">assessment admin</a>
+  <li><a href="@url@admin">#assessment-portlet.assessment_admin#</a>
 </ul>
+
 

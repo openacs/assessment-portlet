@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<message_catalog package_key="assessment-portlet" package_version="0.1d" locale="en_US" charset="ISO-8859-1">
+
+  <msg key="assessment_admin">assessment admin</msg>
+  <msg key="error_one_assessment">There should be only one instance of assessment for admin purpose</msg>
+</message_catalog>
