@@ -33,31 +33,6 @@ foreach package_id $config(package_id) {
     }
 }
 
-template::list::create \
-    -name assessments \
-    -multirow assessments \
-    -pass_properties { as_package_id } \
-    -key assessment_id \
-    -elements {
-	title {
-	    label {[_ assessment.Assessment]}
-	    link_url_eval {[site_node::get_url_from_object_id -object_id $as_package_id]assessment?[export_vars {assessment_id}]}
-	    link_html { title {description} }
-	    
-	}
-	session {
-	    label {[_ assessment.Sessions]}
-	    link_url_eval {[site_node::get_url_from_object_id -object_id $as_package_id]sessions?[export_vars {assessment_id}]}
-	}
-    } \
-    -main_class {
-	narrow
-    }
-
-db_multirow -extend { session } assessments asssessment_id_name_definition {} {
-    set session {Sessions}
-}
-
 ad_return_template
 
 
