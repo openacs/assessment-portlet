@@ -20,6 +20,10 @@ set list_of_package_ids $config(package_id)
 set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]
 ns_log notice " ----- [join $list_of_package_ids ","] \n\n\n\n"
 
+foreach package_id $config(package_id) {
+    db_1row as_package_id {SELECT package_id AS as_package_id FROM apm_packages WHERE package_key = 'assessment' AND package_id = :package_id}
+} 
+
 set admin_p 0
 array set package_admin_p [list]
 foreach package_id $config(package_id) {
@@ -29,23 +33,21 @@ foreach package_id $config(package_id) {
     }
 }
 
-set base_url "[ad_conn package_url]assessment/"
-
 template::list::create \
     -name assessments \
     -multirow assessments \
-    -pass_properties { base_url } \
+    -pass_properties { as_package_id } \
     -key assessment_id \
     -elements {
 	title {
 	    label {[_ assessment.Assessment]}
-	    link_url_eval {[export_vars -base "$base_url/assessment" {assessment_id}]}
+	    link_url_eval {[site_node::get_url_from_object_id -object_id $as_package_id]assessment?[export_vars {assessment_id}]}
 	    link_html { title {description} }
 	    
 	}
 	session {
 	    label {[_ assessment.Sessions]}
-	    link_url_eval {[export_vars -base "$base_url/sessions" {assessment_id}]}
+	    link_url_eval {[site_node::get_url_from_object_id -object_id $as_package_id]sessions?[export_vars {assessment_id}]}
 	}
     } \
     -main_class {
