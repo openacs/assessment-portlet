@@ -18,6 +18,7 @@
 	     and crr.revision_id = cri.latest_revision
 	     and cri.parent_id = crf.folder_id
 	     and crf.package_id in ([join $list_of_package_ids ", "])
+	     and (asa.start_time < sysdate or asa.start_time is null)
 	   order by package_id, lower(crr.title)
         </querytext>
     </fullquery>
