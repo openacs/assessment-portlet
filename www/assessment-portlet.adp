@@ -7,8 +7,11 @@
 
     <ul>
     <group column="package_id">
-      <li>
-       <a href="@assessments.url@assessment?assessment_id=@assessments.assessment_id@">@assessments.title@</a>
+       <li>
+        <a href="@assessments.url@assessment?assessment_id=@assessments.assessment_id@">@assessments.title@</a>
+	| 
+        <a href="@assessments.url@sessions?assessment_id=@assessments.assessment_id@">#assessment.Sessions#</a>
+	
       </li>
      </group>
     </ul>
