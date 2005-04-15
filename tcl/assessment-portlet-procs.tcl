@@ -32,7 +32,7 @@ ad_proc -private assessment_portlet::my_package_key {
 
 ad_proc -public assessment_portlet::get_pretty_name {
 } {
-    return "Assessment"
+    return "[_ assessment.Assessment_porlet]"
 }
 
 
