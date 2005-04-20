@@ -1,0 +1,2 @@
+update portal_element_map set pretty_name ='#assessment.Assessment#'  where pretty_name = 'Assessment';
+update portal_element_map set pretty_name ='#assessment.Assessment_Administration#'  where pretty_name = 'Assessment Administration';

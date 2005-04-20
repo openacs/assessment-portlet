@@ -32,7 +32,7 @@ ad_proc -private assessment_portlet::my_package_key {
 
 ad_proc -public assessment_portlet::get_pretty_name {
 } {
-    return "[_ assessment.Assessment_porlet]"
+    return "#assessment.Assessment#"
 }
 
 
@@ -108,7 +108,7 @@ ad_proc -private assessment_admin_portlet::get_my_name {} {
 
 
 ad_proc -public assessment_admin_portlet::get_pretty_name {} {
-    return "Assessment Administration"
+    return "#assessment.Assessment_Administration#"
 }
 
 
