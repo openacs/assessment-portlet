@@ -1,23 +1,14 @@
-<if @assessments:rowcount@>
-<if @shaded_p@ false>
+<if @assessments:rowcount@ gt 0 or @sessions:rowcount@ gt 0>
+  <if @shaded_p@ false>
+    <if @assessments:rowcount@ gt 0>
+      <listtemplate name="assessments"></listtemplate>
+    </if>
 
-<multiple name="assessments">
-
-  <if @one_instance_p@ false>@assessments.parent_name@</if>
-
-    <ul>
-    <group column="package_id">
-       <li>
-        <a href="@assessments.url@assessment?assessment_id=@assessments.assessment_id@">@assessments.title@</a>
-	| 
-        <a href="@assessments.url@sessions?assessment_id=@assessments.assessment_id@">#assessment.Sessions#</a>
-	
-      </li>
-     </group>
-    </ul>
-
-</multiple>
-</if>
+    <if @sessions:rowcount@ gt 0>
+      <h4>#assessment.answered_assessments#</h4>
+      <listtemplate name="sessions"></listtemplate>
+    </if>
+  </if>
 </if>
 <else>
   &nbsp;  

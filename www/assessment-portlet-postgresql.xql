@@ -3,24 +3,30 @@
 <queryset>
 <rdbms><type>postgresql</type><version>7.1</version></rdbms>
 
-    <fullquery name="assessments">
-        <querytext>
-	   select cri.item_id as assessment_id, 
-            crr.title, 
-	    crr.description,
-	    acs_object__name(apm_package__parent_id(crf.package_id)) as parent_name,
-            (select site_node__url(site_nodes.node_id)
-              from site_nodes
-             where site_nodes.object_id = crf.package_id) as url,
-	    crf.package_id
-	   from as_assessments asa, cr_items cri, cr_revisions crr, cr_folders crf
-	   where crr.revision_id = asa.assessment_id
-	     and crr.revision_id = cri.latest_revision
-	     and cri.parent_id = crf.folder_id
-	     and crf.package_id in ([join $list_of_package_ids ", "])
-             and (asa.start_time < current_timestamp or asa.start_time is null)
-	   order by package_id, lower(crr.title)
-        </querytext>
-    </fullquery>
+<fullquery name="open_asssessments">
+	<querytext>
+	select cr.item_id as assessment_id, cr.title, cr.description, a.password,
+	       to_char(a.start_time, 'YYYY-MM-DD HH24:MI:SS') as start_time,
+	       to_char(a.end_time, 'YYYY-MM-DD HH24:MI:SS') as end_time,
+	       to_char(now(), 'YYYY-MM-DD HH24:MI:SS') as cur_time,
+	       cf.package_id, p.instance_name as community_name,
+	       sc.node_id as comm_node_id, sa.node_id as as_node_id
+	from as_assessments a, cr_revisions cr, cr_items ci, cr_folders cf,
+	     site_nodes sa, site_nodes sc, apm_packages p
+	where a.assessment_id = cr.revision_id
+	and cr.revision_id = ci.latest_revision
+	and ci.parent_id = cf.folder_id
+	and cf.package_id in ([join $list_of_package_ids ", "])
+	and sa.object_id = cf.package_id
+	and sc.node_id = sa.parent_id
+	and p.package_id = sc.object_id
+	and exists (select 1
+		from as_assessment_section_map asm, as_item_section_map ism
+		where asm.assessment_id = a.assessment_id
+		and ism.section_id = asm.section_id)
+	and acs_permission__permission_p (a.assessment_id, :user_id, 'read') = 't'
+	order by lower(p.instance_name), lower(cr.title)
+	</querytext>
+</fullquery>
 
 </queryset>
