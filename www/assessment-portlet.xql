@@ -1,14 +1,9 @@
 <?xml version="1.0"?>
-
 <queryset>
-<rdbms><type>oracle</type><version>8.1.6</version></rdbms>
 
-<fullquery name="open_asssessments">
+<fullquery name="answered_asssessments">
 	<querytext>
-	select cr.item_id as assessment_id, cr.title, cr.description, a.password,
-	       to_char(a.start_time, 'YYYY-MM-DD HH24:MI:SS') as start_time,
-	       to_char(a.end_time, 'YYYY-MM-DD HH24:MI:SS') as end_time,
-	       to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS') as cur_time,
+	select cr.item_id as assessment_id, cr.title, cr.description,
 	       cf.package_id, p.instance_name as community_name,
 	       sc.node_id as comm_node_id, sa.node_id as as_node_id
 	from as_assessments a, cr_revisions cr, cr_items ci, cr_folders cf,
@@ -21,10 +16,10 @@
 	and sc.node_id = sa.parent_id
 	and p.package_id = sc.object_id
 	and exists (select 1
-		from as_assessment_section_map asm, as_item_section_map ism
-		where asm.assessment_id = a.assessment_id
-		and ism.section_id = asm.section_id)
-	and acs_permission.permission_p (a.assessment_id, :user_id, 'read') = 't'
+		from as_sessions s
+		where s.assessment_id = a.assessment_id
+		and s.subject_id = :user_id
+		and s.completed_datetime is not null)
 	order by lower(p.instance_name), lower(cr.title)
 	</querytext>
 </fullquery>
