@@ -92,7 +92,7 @@ template::list::create \
 
 # get the information of all assessments store in the database
 set old_comm_node_id 0
-db_multirow -extend { session_url community_url } sessions answered_asssessments {} {
+db_multirow -extend { session_url community_url } sessions answered_assessments {} {
     if {$comm_node_id == $old_comm_node_id} {
 	set community_name ""
     }
