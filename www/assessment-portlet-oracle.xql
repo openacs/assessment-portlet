@@ -3,24 +3,30 @@
 <queryset>
 <rdbms><type>oracle</type><version>8.1.6</version></rdbms>
 
-    <fullquery name="assessments">
-        <querytext>
-               select cri.item_id as assessment_id,
-               crr.title,
-               crr.description,
-               acs_object.name(apm_package.parent_id(crf.package_id)) as parent_name,
-               (select site_node.url(site_nodes.node_id)
-               from site_nodes
-               where site_nodes.object_id = crf.package_id) as url,
-               crf.package_id
-               from as_assessments asa, cr_items cri, cr_revisions crr, cr_folders crf
-               where crr.revision_id = asa.assessment_id
-               and crr.revision_id = cri.latest_revision
-               and cri.parent_id = crf.folder_id
-               and crf.package_id in ([join $list_of_package_ids ", "])
-               and (asa.start_time < current_timestamp or asa.start_time is null)
-               order by package_id, lower(crr.title)
-        </querytext>
-    </fullquery>
-
+<fullquery name="open_asssessments">
+	<querytext>
+select a.*, cr.item_id as assessment_id, cr.title, cr.description, a.password,
+       sc.node_id as comm_node_id, sa.node_id as as_node_id,p.instance_name as community_name
+from as_assessments a, cr_revisions cr, cr_items ci, cr_folders cf, site_nodes sa, site_nodes sc, apm_packages p
+where a.assessment_id = cr.revision_id
+and sysdate < a.end_time
+and sysdate > a.start_time
+and cr.revision_id = ci.latest_revision
+and ci.parent_id = cf.folder_id
+and cf.package_id in ([join $list_of_package_ids ", "])
+and sa.object_id = cf.package_id
+	and sc.node_id = sa.parent_id
+	and p.package_id = sc.object_id
+and exists (select 1
+                   from as_assessment_section_map asm, as_item_section_map ism
+                   where asm.assessment_id = a.assessment_id
+                   and ism.section_id = asm.section_id)
+        and exists (select 1 from acs_object_party_privilege_map ppm
+                    where ppm.object_id = a.assessment_id
+                    and ppm.privilege = 'read'
+                    and ppm.party_id = :user_id)
+	order by lower(p.instance_name), lower(cr.title)
+	</querytext>
+</fullquery>
+	
 </queryset>
