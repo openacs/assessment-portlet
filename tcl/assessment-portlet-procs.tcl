@@ -58,15 +58,17 @@ ad_proc -public assessment_portlet::add_self_to_page {
     
     @return element_id The new element's id
 } {
+
+    ns_log Notice "portal_id:: $portal_id;; $page_name"
     return [portal::add_element_parameters \
-                -portal_id $portal_id \
-                -portlet_name [get_my_name] \
-                -value $package_id \
-                -force_region $force_region \
+		-portal_id $portal_id \
+		-portlet_name [get_my_name] \
+		-value $package_id \
+		-force_region $force_region \
 		-page_name $page_name \
-                -pretty_name [get_pretty_name] \
-                -param_action $param_action
-           ]
+		-pretty_name [get_pretty_name] \
+		-param_action $param_action
+	   ]
 }
 
 

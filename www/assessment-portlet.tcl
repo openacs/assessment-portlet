@@ -45,7 +45,6 @@ template::list::create \
 template::multirow create assessments assessment_id title description assessment_url community_url community_name
 set old_comm_node_id 0
 db_foreach open_asssessments {} {
-    if {([empty_string_p $start_time] || $start_time <= $cur_time) && ([empty_string_p $end_time] || $end_time >= $cur_time)} {
 	if {$comm_node_id == $old_comm_node_id} {
 	    set community_name ""
 	}
@@ -60,7 +59,6 @@ db_foreach open_asssessments {} {
 	}
 
 	template::multirow append assessments $assessment_id $title $description $assessment_url $community_url $community_name
-    }
 }
 
 
@@ -70,7 +68,12 @@ if {!$one_instance_p} {
 		      [list \
 			   label "[_ dotlrn.Community]" \
 			   display_template {<if @sessions.community_name@ not nil>@sessions.community_name@</if><else>&nbsp;</else>}]]
+    set package_id_sql ""
+} else {
+#    set package_id_sql "and cf.package_id in ([join $list_of_package_ids ", "])"
+    set package_id_sql ""
 }
+
 
 lappend elements title \
     [list \
