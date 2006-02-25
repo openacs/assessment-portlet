@@ -10,7 +10,7 @@
 	       to_char(a.end_time, 'YYYY-MM-DD HH24:MI:SS') as end_time,
 	       to_char(now(), 'YYYY-MM-DD HH24:MI:SS') as cur_time,
 	       cf.package_id, p.instance_name as community_name,
-	       sc.node_id as comm_node_id, sa.node_id as as_node_id
+	       sc.node_id as comm_node_id, sa.node_id as as_node_id, a.anonymous_p
 	from as_assessments a, cr_revisions cr, cr_items ci, cr_folders cf,
 	     site_nodes sa, site_nodes sc, apm_packages p
 	where a.assessment_id = cr.revision_id

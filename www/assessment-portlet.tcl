@@ -32,6 +32,11 @@ lappend elements title \
 	 label "[_ assessment.open_assessments]" \
 	 display_template {<a href="@assessments.assessment_url@">@assessments.title@</a>}]
 
+lappend elements anonymous_p \
+    [list \
+	 label "[_ assessment-portlet.lt_Is_this_assessment_an]" \
+	 display_template {<if @assessments.anonymous_p@ eq "t">Yes</if><else>No</else>}]
+
 
 # create a list with all open assessments
 template::list::create \
@@ -42,7 +47,7 @@ template::list::create \
     -main_class narrow
 
 # get the information of all open assessments
-template::multirow create assessments assessment_id title description assessment_url community_url community_name
+template::multirow create assessments assessment_id title description assessment_url community_url community_name anonymous_p 
 set old_comm_node_id 0
 db_foreach open_asssessments {} {
     if {([empty_string_p $start_time] || $start_time <= $cur_time) && ([empty_string_p $end_time] || $end_time >= $cur_time)} {
@@ -59,7 +64,7 @@ db_foreach open_asssessments {} {
 	    append assessment_url [export_vars -base "assessment-password" {assessment_id}]
 	}
 
-	template::multirow append assessments $assessment_id $title $description $assessment_url $community_url $community_name
+	template::multirow append assessments $assessment_id $title $description $assessment_url $community_url $community_name $anonymous_p
     }
 }
 
