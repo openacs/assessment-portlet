@@ -32,7 +32,31 @@ lappend elements title \
 	 label "[_ assessment.open_assessments]" \
 	 display_template {<a href="@assessments.assessment_url@">@assessments.title@</a>}]
 
+lappend elements anonymous_p \
+    [list \
+	 label "[_ assessment-portlet.lt_Is_this_assessment_an]" \
+	 display_template {<if @assessments.anonymous_p@ eq "t">Yes</if><else>No</else>}]
 
+if {[llength $list_of_package_ids]==1} {
+    set admin_p [permission::permission_p \
+		     -party_id $user_id \
+		     -privilege admin \
+		     -object_id $list_of_package_ids]
+} else {
+    set admin_p 0
+}
+
+if {$admin_p} {
+    set hide 0
+} else {
+    set hide 1
+}
+
+lappend elements results {
+            hide_p $hide
+	    label "[_ assessment.View_results]"
+	    display_template {<a href="assessment/asm-admin/results-users?assessment_id=@assessments.assessment_id@">\#assessment.View_results\#</a>}
+	}
 # create a list with all open assessments
 template::list::create \
     -name assessments \
@@ -42,10 +66,10 @@ template::list::create \
     -main_class narrow
 
 # get the information of all open assessments
-template::multirow create assessments assessment_id title description assessment_url community_url community_name
+template::multirow create assessments assessment_id title description assessment_url community_url community_name anonymous_p
 set old_comm_node_id 0
 db_foreach open_asssessments {} {
-	if {$comm_node_id == $old_comm_node_id} {
+	if {$comm_node_id == $old_comm_node_id} {e
 	    set community_name ""
 	}
 	set community_url [site_node::get_url -node_id $comm_node_id]
@@ -58,7 +82,7 @@ db_foreach open_asssessments {} {
 	    append assessment_url [export_vars -base "assessment-password" {assessment_id}]
 	}
 
-	template::multirow append assessments $assessment_id $title $description $assessment_url $community_url $community_name
+	template::multirow append assessments $assessment_id $title $description $assessment_url $community_url $community_name $anonymous_p
 }
 
 

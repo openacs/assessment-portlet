@@ -5,16 +5,20 @@
 
 <fullquery name="open_asssessments">
 	<querytext>
-select a.*, cr.item_id as assessment_id, cr.title, cr.description, a.password,
-       sc.node_id as comm_node_id, sa.node_id as as_node_id,p.instance_name as community_name
-from as_assessments a, cr_revisions cr, cr_items ci, cr_folders cf, site_nodes sa, site_nodes sc, apm_packages p
-where a.assessment_id = cr.revision_id
-and sysdate < a.end_time
-and sysdate > a.start_time
-and cr.revision_id = ci.latest_revision
-and ci.parent_id = cf.folder_id
-and cf.package_id in ([join $list_of_package_ids ", "])
-and sa.object_id = cf.package_id
+	select cr.item_id as assessment_id, cr.title, cr.description, a.password,
+	       to_char(a.start_time, 'YYYY-MM-DD HH24:MI:SS') as start_time,
+	       to_char(a.end_time, 'YYYY-MM-DD HH24:MI:SS') as end_time,
+	       to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS') as cur_time,
+	       cf.package_id, p.instance_name as community_name,
+	       sc.node_id as comm_node_id, sa.node_id as as_node_id,
+	       acs_permission__permission_p(a.assessment_id,:user_id,'admin') as admin_p
+	from as_assessments a, cr_revisions cr, cr_items ci, cr_folders cf,
+	     site_nodes sa, site_nodes sc, apm_packages p
+	where a.assessment_id = cr.revision_id
+	and cr.revision_id = ci.latest_revision
+	and ci.parent_id = cf.folder_id
+	and cf.package_id in ([join $list_of_package_ids ", "])
+	and sa.object_id = cf.package_id
 	and sc.node_id = sa.parent_id
 	and p.package_id = sc.object_id
 and exists (select 1
