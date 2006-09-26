@@ -5,13 +5,24 @@
 
 <fullquery name="open_asssessments">
 	<querytext>
-	select cr.item_id as assessment_id, cr.title, cr.description, a.password,
+	select * from (select cr.item_id as assessment_id, cr.title, cr.description, a.password,
+	a.type,
 	       to_char(a.start_time, 'YYYY-MM-DD HH24:MI:SS') as start_time,
 	       to_char(a.end_time, 'YYYY-MM-DD HH24:MI:SS') as end_time,
 	       to_char(now(), 'YYYY-MM-DD HH24:MI:SS') as cur_time,
 	       cf.package_id, p.instance_name as community_name,
 	       sc.node_id as comm_node_id, sa.node_id as as_node_id, a.anonymous_p,
-	       acs_permission__permission_p(a.assessment_id,:user_id,'admin') as admin_p
+	       acs_permission__permission_p(a.assessment_id,:user_id,'admin') as admin_p,
+	(select count(*) from as_sessions s1 where
+         s1.assessment_id=a.assessment_id
+	 and s1.subject_id=:user_id
+         and completed_datetime is null) as in_progress_p,
+	(select count(*) from as_sessions s1 where
+         s1.assessment_id=a.assessment_id
+	 and s1.subject_id=:user_id
+         and completed_datetime is not null) as completed_p,
+         a.number_tries
+
 	from as_assessments a, cr_revisions cr, cr_items ci, cr_folders cf,
 	     site_nodes sa, site_nodes sc, apm_packages p,
              (select distinct asm.assessment_id
@@ -29,7 +40,9 @@
 	and sc.node_id = sa.parent_id
 	and p.package_id = sc.object_id
         and s.assessment_id = a.assessment_id
+        and ((a.start_time < current_timestamp and a.end_time > current_timestamp) or a.start_time is null)
 	order by lower(p.instance_name), lower(cr.title)
+) q where (q.completed_p < q.number_tries) or q.number_tries is null
 	</querytext>
 </fullquery>
 
