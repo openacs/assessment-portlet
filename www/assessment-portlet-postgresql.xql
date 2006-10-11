@@ -13,12 +13,16 @@
 	       cf.package_id, p.instance_name as community_name,
 	       sc.node_id as comm_node_id, sa.node_id as as_node_id, a.anonymous_p,
 	       acs_permission__permission_p(a.assessment_id,:user_id,'admin') as admin_p,
-	(select count(*) from as_sessions s1 where
-         s1.assessment_id=a.assessment_id
+	(select count(*) from as_sessions s1,
+         cr_revisions cr1 where
+         s1.assessment_id=cr1.revision_id
+         and cr1.item_id=cr.item_id
 	 and s1.subject_id=:user_id
          and completed_datetime is null) as in_progress_p,
-	(select count(*) from as_sessions s1 where
-         s1.assessment_id=a.assessment_id
+	(select count(*) from as_sessions s1,
+         cr_revisions cr1 where
+         s1.assessment_id=cr1.revision_id
+         and cr1.item_id=cr.item_id
 	 and s1.subject_id=:user_id
          and completed_datetime is not null) as completed_p,
          a.number_tries
@@ -42,7 +46,7 @@
         and s.assessment_id = a.assessment_id
         and ((a.start_time < current_timestamp and a.end_time > current_timestamp) or a.start_time is null)
 	order by lower(p.instance_name), lower(cr.title)
-) q where (q.completed_p < q.number_tries) or q.number_tries is null
+) q where (q.completed_p < q.number_tries) or (q.number_tries=0 or q.number_tries is null)
 	</querytext>
 </fullquery>
 
