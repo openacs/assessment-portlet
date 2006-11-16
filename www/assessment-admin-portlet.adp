@@ -1,5 +1,5 @@
 <ul>
-  <li><a href="@url@asm-admin">#assessment-portlet.assessment_admin#</a>
+  <li><a href="@url@asm-admin">#assessment-portlet.assessment_admin#</a></li>
 </ul>
 
 
