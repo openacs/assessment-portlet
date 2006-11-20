@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<message_catalog package_key="assessment-portlet" package_version="2.2.0" locale="de_DE" charset="ISO-8859-1">
+
+  <msg key="assessment_admin">Assessment verwalten</msg>
+  <msg key="lt_Is_this_assessment_an">Ist dieses Assessment anonym?</msg>
+</message_catalog>
