@@ -30,12 +30,12 @@ if {!$one_instance_p} {
 lappend elements title \
     [list \
 	 label "[_ assessment.open_assessments]" \
-	 display_template {<a href="@assessments.assessment_url@">@assessments.title@</a>}]
+	 display_template {<a href="@assessments.assessment_url@" title="#assessment-portlet.goto_assessments_title#">@assessments.title@</a>}]
 
 lappend elements anonymous_p \
     [list \
 	 label "[_ assessment-portlet.lt_Is_this_assessment_an]" \
-	 display_template {<if @assessments.anonymous_p@ eq "t">Yes</if><else>No</else>}]
+	 display_template {<if @assessments.anonymous_p@ eq "t">\#acs-kernel.common_Yes\#</if><else>\#acs-kernel.common_no\#</else>}]
 
 
 # create a list with all open assessments
