@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="assessment-portlet" package_version="2.2.0b2" locale="ca_ES" charset="ISO-8859-1">
+<message_catalog package_key="assessment-portlet" package_version="2.2.0" locale="ca_ES" charset="ISO-8859-1">
 
   <msg key="assessment_admin">Administració d'exàmens</msg>
   <msg key="error_one_assessment">Hauria d'haver un sol qüestionari per a administració.</msg>
