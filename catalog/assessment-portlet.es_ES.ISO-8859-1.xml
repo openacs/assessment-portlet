@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="assessment-portlet" package_version="0.1d" locale="es_ES" charset="ISO-8859-1">
+<message_catalog package_key="assessment-portlet" package_version="2.2.0" locale="es_ES" charset="ISO-8859-1">
 
-  <msg key="assessment_admin">Administración de Assessments</msg>
+  <msg key="assessment_admin">Administración de Cuestionarios</msg>
   <msg key="error_one_assessment">Con el propósito de una mejor administración solamente puede tener una instancia de este paquete.</msg>
+  <msg key="goto_assessment_admin">Ir a la administración de cuestionarios</msg>
+  <msg key="goto_assessments_title">Ir a %assessments.title%</msg>
+  <msg key="lt_Is_this_assessment_an">¿Es un cuestionario anónimo?</msg>
 </message_catalog>

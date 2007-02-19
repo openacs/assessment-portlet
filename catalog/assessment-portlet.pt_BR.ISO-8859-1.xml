@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<message_catalog package_key="assessment-portlet" package_version="2.2.0" locale="pt_BR" charset="ISO-8859-1">
+
+  <msg key="assessment_admin">administrador da avaliação</msg>
+  <msg key="error_one_assessment">Deve haver somente uma instância de avaliação para fins de administração</msg>
+  <msg key="lt_Is_this_assessment_an">Esta avaliação é anônima?</msg>
+</message_catalog>
