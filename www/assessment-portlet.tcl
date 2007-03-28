@@ -38,7 +38,7 @@ lappend elements status {
 }
 lappend elements take {
     label ""
-    display_template {<if @assessments.status@ eq in_progress><a href="@assessments.assessment_url@">Finish</a></if><else><if @assessments.status@ eq untaken><a href="@assessments.assessment_url@"><a href="@assessments.assessment_url@">Take</a></if><else><if @assessments.completed_p@ lt @assessments.number_tries@><a href="@assessments.assessment_url@">Retake</a></if></else></else>}
+    display_template {<if @assessments.status@ eq in_progress><a href="@assessments.assessment_url@">Finish</a></if><else><if @assessments.status@ eq untaken><a href="@assessments.assessment_url@">Take</a></if><else><if @assessments.completed_p@ lt @assessments.number_tries@><a href="@assessments.assessment_url@">Retake</a></if></else></else>}
 }
 if {[llength $list_of_package_ids]==1} {
     set admin_p [permission::permission_p \
@@ -62,7 +62,7 @@ lappend elements session \
 
 lappend elements admin {
     label ""
-    display_template {<if @assessments.admin_p@ true><a href="@assessments.community_url@assessment/asm-admin/one-a?assessment_id=@assessments.assessment_id@">\#acs-kernel.common_Admin\#</a></if>}
+    display_template {<if @assessments.admin_p@ true><a href="@assessments.community_url@assessment/asm-admin/one-a?assessment_id=@assessments.assessment_id@">\#acs-kernel.common_Administration\#</a></if>}
 }
 
 lappend elements results {
@@ -132,7 +132,7 @@ lappend elements session \
 
 lappend elements admin {
     label ""
-    display_template {<if @sessions.admin_p@ true><a href="@sessions.community_url@assessment/asm-admin/one-a?assessment_id=@sessions.assessment_id@">\#acs-kernel.common_Admin\#</a></if>}
+    display_template {<if @sessions.admin_p@ true><a href="@sessions.community_url@assessment/asm-admin/one-a?assessment_id=@sessions.assessment_id@">\#acs-kernel.common_Administration\#</a></if>}
 }
 
 lappend elements results {
