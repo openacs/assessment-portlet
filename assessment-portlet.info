@@ -12,7 +12,7 @@
         <release-date>2007-03-31</release-date>
 
         <provides url="assessment-portlet" version="2.3.0a1"/>
-        <requires url="assessment" version="0.22d2"/>
+        <requires url="assessment" version="0.22d3"/>
 
         <callbacks>
             <callback type="after-install"  proc="apm::assessment_portlet::after_install"/>
