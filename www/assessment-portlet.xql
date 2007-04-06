@@ -33,7 +33,7 @@ acs_permission__permission_p(ass.assessment_id,:user_id,'admin') as admin_p,
          and cr.item_id = ci.item_id
          and ci.parent_id = cf.folder_id
          and s.assessment_id = a.assessment_id
-	and a1.assessment_id = ci.live_revision
+	and a1.assessment_id = ci.latest_revision
        ) ass, 
 site_nodes sa, site_nodes sc, apm_packages p
 where sa.object_id = ass.package_id
