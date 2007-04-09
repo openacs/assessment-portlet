@@ -12,13 +12,12 @@ ad_page_contract {
 }
 
 set user_id [ad_conn user_id]
-
 array set config $cf	
 set shaded_p $config(shaded_p)
 
 set list_of_package_ids $config(package_id)
-set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]
 
+set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]
 set elements [list]
 if {!$one_instance_p} {
     set elements [list community_name \
@@ -34,7 +33,7 @@ lappend elements title \
 
 lappend elements status {
     label "[_ assessment.Status]"
-    display_template {<if @assessments.status@ eq in_progress>Incomplete</if><if @assessments.status@ eq "finished">Finished</if><if @assessments.status@ eq untaken>Untaken</if>}
+    display_template {<if @assessments.status@ eq in_progress>Incomplete</if><if @assessments.status@ eq "finished">Finished</if><if @assessments.status@ eq untaken>Untaken</if><if @assessments.anonymous_p@ eq "t"><br />(this assessment is anonymous)</if>}
 }
 lappend elements take {
     label ""
@@ -77,7 +76,7 @@ template::list::create \
     -key assessment_id \
     -elements $elements \
     -main_class narrow \
-    -no_data "\#assssment.No_open_assessments\#"
+    -no_data "\#assessment.No_open_assessments\#"
 
 # get the information of all open assessments
 template::multirow create assessments assessment_id title description assessment_url community_url community_name anonymous_p in_progress_p completed_p status number_tries admin_p
@@ -102,7 +101,6 @@ db_foreach open_asssessments {} {
     } else {
 	set status untaken
     }
-    ns_log notice "in_progress $in_progress_p completed $completed_p status $status user_id $user_id assessment_id $assessment_id"
 	template::multirow append assessments $assessment_id $title $description $assessment_url $community_url $community_name $anonymous_p $in_progress_p $completed_p $status $number_tries $admin_p
 }
 
