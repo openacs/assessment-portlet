@@ -30,15 +30,16 @@
 	from as_assessments a, cr_revisions cr, cr_items ci, cr_folders cf,
 	     site_nodes sa, site_nodes sc, apm_packages p,
              (select distinct asm.assessment_id
-              from as_assessment_section_map asm, as_item_section_map ism,
-                   acs_object_party_privilege_map ppm
+              from as_assessment_section_map asm, as_item_section_map ism
               where ism.section_id = asm.section_id
-              and ppm.object_id = asm.assessment_id
-              and ppm.privilege = 'read'
-              and ppm.party_id = :user_id) s
+	      and exists (select 1 from acs_object_party_privilege_map ppm
+                  where ppm.object_id = asm.assessment_id
+                  and ppm.privilege = 'read'
+                  and ppm.party_id = :user_id)) s
 	where a.assessment_id = cr.revision_id
 	and cr.revision_id = ci.latest_revision
 	and ci.parent_id = cf.folder_id
+        and ci.publish_status = 'live'
 	and cf.package_id in ([join $list_of_package_ids ", "])
 	and sa.object_id = cf.package_id
 	and sc.node_id = sa.parent_id

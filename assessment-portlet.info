@@ -7,12 +7,12 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>t</singleton-p>
     
-    <version name="0.2d1" url="http://openacs.org/repository/download/apm/assessment-portlet-0.2d1.apm">
+    <version name="2.3.0" url="http://openacs.org/repository/download/apm/assessment-portlet-2.3.0.apm">
         <owner url="mailto:jopez@galileo.edu">Jose Pablo Escobedo Del Cid</owner>
-        <release-date>2004-06-12</release-date>
+        <release-date>2007-04-22</release-date>
 
-        <provides url="assessment-portlet" version="0.2d1"/>
-        <requires url="assessment" version="0.1d"/>
+        <provides url="assessment-portlet" version="2.3.0"/>
+        <requires url="assessment" version="0.22d3"/>
 
         <callbacks>
             <callback type="after-install"  proc="apm::assessment_portlet::after_install"/>

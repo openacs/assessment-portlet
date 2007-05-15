@@ -17,6 +17,7 @@
 	where a.assessment_id = cr.revision_id
 	and cr.revision_id = ci.latest_revision
 	and ci.parent_id = cf.folder_id
+        and ci.publish_status='live'
 	and cf.package_id in ([join $list_of_package_ids ", "])
 	and sa.object_id = cf.package_id
 	and sc.node_id = sa.parent_id

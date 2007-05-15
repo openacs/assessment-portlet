@@ -12,13 +12,12 @@ ad_page_contract {
 }
 
 set user_id [ad_conn user_id]
-
 array set config $cf	
 set shaded_p $config(shaded_p)
 
 set list_of_package_ids $config(package_id)
-set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]
 
+set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]
 set elements [list]
 if {!$one_instance_p} {
     set elements [list community_name \
@@ -30,15 +29,15 @@ if {!$one_instance_p} {
 lappend elements title \
     [list \
 	 label "[_ assessment.Title]" \
-	 display_template {<a href="@assessments.assessment_url@">@assessments.title@</a><if @assessments.anonymous_p@ eq "t">Yes</if><if @assessments.anonymous_p@ eq "t">(this assessment is anonymous)</if>}]
+	 display_template {<a href="@assessments.assessment_url@">@assessments.title@</a><if @assessments.anonymous_p@ eq "t">(this assessment is anonymous)</if>}]
 
 lappend elements status {
     label "[_ assessment.Status]"
-    display_template {<if @assessments.status@ eq in_progress>Incomplete</if><if @assessments.status@ eq "finished">Finished</if><if @assessments.status@ eq untaken>Untaken</if>}
+    display_template {<if @assessments.status@ eq in_progress>Incomplete</if><if @assessments.status@ eq "finished">Finished</if><if @assessments.status@ eq untaken>Untaken</if><if @assessments.anonymous_p@ eq "t"><br />(this assessment is anonymous)</if>}
 }
 lappend elements take {
     label ""
-    display_template {<if @assessments.status@ ne finished><a href="@assessments.assessment_url@"><a href="@assessments.assessment_url@">Take</a></if><else><if @assessments.completed_p@ lt @assessments.number_tries@><a href="@assessments.assessment_url@">Retake</a></if></else>}
+    display_template {<if @assessments.status@ eq in_progress><a href="@assessments.assessment_url@">Finish</a></if><else><if @assessments.status@ eq untaken><a href="@assessments.assessment_url@">Take</a></if><else><if @assessments.completed_p@ lt @assessments.number_tries@><a href="@assessments.assessment_url@">Retake</a></if></else></else>}
 }
 if {[llength $list_of_package_ids]==1} {
     set admin_p [permission::permission_p \
@@ -62,7 +61,7 @@ lappend elements session \
 
 lappend elements admin {
     label ""
-    display_template {<if @assessments.admin_p@ true><a href="@assessments.community_url@assessment/asm-admin/one-a?assessment_id=@assessments.assessment_id@">\#acs-kernel.common_Admin\#</a></if>}
+    display_template {<if @assessments.admin_p@ true><a href="@assessments.community_url@assessment/asm-admin/one-a?assessment_id=@assessments.assessment_id@">\#acs-kernel.common_Administration\#</a></if>}
 }
 
 lappend elements results {
@@ -76,7 +75,8 @@ template::list::create \
     -multirow assessments \
     -key assessment_id \
     -elements $elements \
-    -main_class narrow
+    -main_class narrow \
+    -no_data "\#assessment.No_open_assessments\#"
 
 # get the information of all open assessments
 template::multirow create assessments assessment_id title description assessment_url community_url community_name anonymous_p in_progress_p completed_p status number_tries admin_p
@@ -90,18 +90,17 @@ db_foreach open_asssessments {} {
 	set old_comm_node_id $comm_node_id
 
 	if {[empty_string_p $password]} {
-	    append assessment_url [export_vars -base "assessment" {assessment_id}]
+	    append assessment_url [export_vars -base "instructions" {assessment_id}]
 	} else {
 	    append assessment_url [export_vars -base "assessment-password" {assessment_id}]
 	}
-    if {$in_progress_p > 0} {
+    if {$in_progress_p > 0 } {
 	set status in_progress
     } elseif {$completed_p >0} {
 	set status finished
     } else {
 	set status untaken
     }
-
 	template::multirow append assessments $assessment_id $title $description $assessment_url $community_url $community_name $anonymous_p $in_progress_p $completed_p $status $number_tries $admin_p
 }
 
@@ -131,7 +130,7 @@ lappend elements session \
 
 lappend elements admin {
     label ""
-    display_template {<if @sessions.admin_p@ true><a href="@sessions.community_url@assessment/asm-admin/one-a?assessment_id=@sessions.assessment_id@">\#acs-kernel.common_Admin\#</a></if>}
+    display_template {<if @sessions.admin_p@ true><a href="@sessions.community_url@assessment/asm-admin/one-a?assessment_id=@sessions.assessment_id@">\#acs-kernel.common_Administration\#</a></if>}
 }
 
 lappend elements results {
@@ -145,7 +144,8 @@ template::list::create \
     -multirow sessions \
     -key assessment_id \
     -elements $elements \
-    -main_class narrow
+    -main_class narrow \
+    -no_data "\#assessment.No_answered_assessments\#"
 
 # get the information of all assessments store in the database
 set old_comm_node_id 0

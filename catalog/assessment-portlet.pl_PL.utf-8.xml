@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<message_catalog package_key="assessment-portlet" package_version="2.3.0" locale="pl_PL" charset="utf-8">
+
+  <msg key="assessment_admin">admin assessment</msg>
+  <msg key="error_one_assessment">Ze względów administracyjnych powinna istnieć tylko jedna instancja assessment</msg>
+  <msg key="lt_Is_this_assessment_an">Czy ten sprawdzian jest anonimowy?</msg>
+</message_catalog>
