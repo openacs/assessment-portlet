@@ -101,7 +101,10 @@ db_foreach open_asssessments {} {
     } else {
 	set status untaken
     }
+    set admin_p [permission::permission_p -object_id $assessment_id -privilege admin]
+    if {[permission::permission_p -object_id $assessment_id -privilege read]} {
 	template::multirow append assessments $assessment_id $title $description $assessment_url $community_url $community_name $anonymous_p $in_progress_p $completed_p $status $number_tries $admin_p
+    }
 }
 
 

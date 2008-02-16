@@ -11,7 +11,6 @@
 	       to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS') as cur_time,
 	       cf.package_id, p.instance_name as community_name,
 	       sc.node_id as comm_node_id, sa.node_id as as_node_id, a.anonymous_p,
-	       acs_permission.permission_p(a.assessment_id,:user_id,'admin') as admin_p,
     (select count(*) from as_sessions s1,
          cr_revisions cr1 where
          s1.assessment_id=cr1.revision_id
@@ -40,10 +39,6 @@ and exists (select 1
                    from as_assessment_section_map asm, as_item_section_map ism
                    where asm.assessment_id = a.assessment_id
                    and ism.section_id = asm.section_id)
-        and exists (select 1 from acs_object_party_privilege_map ppm
-                    where ppm.object_id = a.assessment_id
-                    and ppm.privilege = 'read'
-                    and ppm.party_id = :user_id)
 	order by lower(p.instance_name), lower(cr.title)
 ) q where (q.completed_p < q.number_tries) or (q.number_tries=0 or q.number_tries is null)
 	</querytext>
