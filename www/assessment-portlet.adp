@@ -10,6 +10,9 @@
       <listtemplate name="sessions"></listtemplate>
     </if>
   </if>
+  <else>
+    #new-portal.when_portlet_shaded#
+  </else>
 </if>
 <else>
   &nbsp;  
