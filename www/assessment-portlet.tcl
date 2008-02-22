@@ -29,15 +29,15 @@ if {!$one_instance_p} {
 lappend elements title \
     [list \
 	 label "[_ assessment.Title]" \
-	 display_template {<a href="@assessments.assessment_url@">@assessments.title@</a><if @assessments.anonymous_p@ eq "t">(this assessment is anonymous)</if>}]
+	 display_template {<a href="@assessments.assessment_url@">@assessments.title@</a><if @assessments.anonymous_p@ eq "t">(#assessment.anonymous#)</if>}]
 
 lappend elements status {
     label "[_ assessment.Status]"
-    display_template {<if @assessments.status@ eq in_progress>Incomplete</if><if @assessments.status@ eq "finished">Finished</if><if @assessments.status@ eq untaken>Untaken</if><if @assessments.anonymous_p@ eq "t"><br />(this assessment is anonymous)</if>}
+    display_template {<if @assessments.status@ eq in_progress>#assessment.Incomplete#</if><if @assessments.status@ eq "finished">#assessment.Finished#</if><if @assessments.status@ eq untaken>#assessment.Untaken#</if><if @assessments.anonymous_p@ eq "t"><br />(#assessment.anonymous#)</if>}
 }
 lappend elements take {
     label ""
-    display_template {<if @assessments.status@ eq in_progress><a href="@assessments.assessment_url@">Finish</a></if><else><if @assessments.status@ eq untaken><a href="@assessments.assessment_url@">Take</a></if><else><if @assessments.completed_p@ lt @assessments.number_tries@><a href="@assessments.assessment_url@">Retake</a></if></else></else>}
+    display_template {<if @assessments.status@ eq in_progress><a href="@assessments.assessment_url@">#assessment.Finish#</a></if><else><if @assessments.status@ eq untaken><a href="@assessments.assessment_url@">#assessment.Take#</a></if><else><if @assessments.completed_p@ lt @assessments.number_tries@><a href="@assessments.assessment_url@">#assessment.Retake#</a></if></else></else>}
 }
 if {[llength $list_of_package_ids]==1} {
     set admin_p [permission::permission_p \
