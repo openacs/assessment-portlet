@@ -12,6 +12,7 @@
 	       to_char(now(), 'YYYY-MM-DD HH24:MI:SS') as cur_time,
 	       cf.package_id, p.instance_name as community_name,
 	       sc.node_id as comm_node_id, sa.node_id as as_node_id, a.anonymous_p,
+	       acs_permission__permission_p(a.assessment_id,:user_id,'admin') as admin_p,
 	(select count(*) from as_sessions s1,
          cr_revisions cr1 where
          s1.assessment_id=cr1.revision_id
@@ -30,7 +31,11 @@
 	     site_nodes sa, site_nodes sc, apm_packages p,
              (select distinct asm.assessment_id
               from as_assessment_section_map asm, as_item_section_map ism
-              where ism.section_id = asm.section_id) s
+              where ism.section_id = asm.section_id
+	      and exists (select 1 from acs_object_party_privilege_map ppm
+                  where ppm.object_id = asm.assessment_id
+                  and ppm.privilege = 'read'
+                  and ppm.party_id = :user_id)) s
 	where a.assessment_id = cr.revision_id
 	and cr.revision_id = ci.latest_revision
 	and ci.parent_id = cf.folder_id
