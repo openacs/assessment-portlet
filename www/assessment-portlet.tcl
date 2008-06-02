@@ -21,22 +21,22 @@ set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]
 set elements [list]
 if {!$one_instance_p} {
     set elements [list community_name \
-		      [list \
-			   label "[_ dotlrn.Community]" \
-			   display_template {<if @assessments.community_name@ not nil>@assessments.community_name@</if><else>&nbsp;</else>}]]
+                      [list \
+                           label "[_ dotlrn.Community]" \
+                           display_template {<if @assessments.community_name@ not nil>@assessments.community_name@</if><else>&nbsp;</else>}]]
 }
 
 lappend elements title \
     [list \
-	 label "[_ assessment.Title]" \
-	 display_template {<a href="@assessments.assessment_url@">@assessments.title@</a><if @assessments.anonymous_p@ eq "t">(#assessment.anonymous#)</if>}]
+         label "[_ assessment.Title]" \
+         display_template {<a href="@assessments.assessment_url@">@assessments.title@</a><if @assessments.anonymous_p@ eq "t"><br>(#assessment.anonymous#)</if>}]
 
 lappend elements status {
     label "[_ assessment.Status]"
-    display_template {<if @assessments.status@ eq in_progress>#assessment.Incomplete#</if><if @assessments.status@ eq "finished">#assessment.Finished#</if><if @assessments.status@ eq untaken>#assessment.Untaken#</if><if @assessments.anonymous_p@ eq "t"><br />(#assessment.anonymous#)</if>}
+    display_template {<if @assessments.status@ eq in_progress>#assessment.Incomplete#</if><if @assessments.status@ eq "finished">#assessment.Finished#</if><if @assessments.status@ eq untaken>#assessment.Untaken#</if>}
 }
 lappend elements take {
-    label ""
+    label "[_ acs-kernel.common_Actions]"
     display_template {<if @assessments.status@ eq in_progress><a href="@assessments.assessment_url@">#assessment.Finish#</a></if><else><if @assessments.status@ eq untaken><a href="@assessments.assessment_url@">#assessment.Take#</a></if><else><if @assessments.completed_p@ lt @assessments.number_tries@><a href="@assessments.assessment_url@">#assessment.Retake#</a></if></else></else>}
 }
 if {[llength $list_of_package_ids]==1} {
@@ -56,16 +56,16 @@ if {$admin_p} {
 
 lappend elements session \
     [list \
-	 label {} \
+         label "[_ assessment.Review]" \
 	 display_template {<if @assessments.status@ ne "untaken"><a href="@assessments.community_url@assessment/session?assessment_id=@assessments.assessment_id@">[_ assessment.Review]</a></if>}]
 
 lappend elements admin {
-    label ""
+    label "[_ acs-kernel.common_Administration]"
     display_template {<if @assessments.admin_p@ true><a href="@assessments.community_url@assessment/asm-admin/one-a?assessment_id=@assessments.assessment_id@">\#acs-kernel.common_Administration\#</a></if>}
 }
 
 lappend elements results {
-	    label ""
+    label "[_ assessment.Results]"
     display_template {<if @assessments.admin_p@ true><a href="@assessments.community_url@assessment/asm-admin/results-users?assessment_id=@assessments.assessment_id@">\#assessment.Results\#</a></if><else></else>}
 	}
 
@@ -75,7 +75,6 @@ template::list::create \
     -multirow assessments \
     -key assessment_id \
     -elements $elements \
-    -main_class narrow \
     -no_data "\#assessment.No_open_assessments\#"
 
 # get the information of all open assessments
@@ -125,16 +124,16 @@ lappend elements title \
 
 lappend elements session \
     [list \
-	 label {} \
+	 label "[_ assessment.Review]" \
 	 display_template {<a href="@sessions.session_url@">[_ assessment.Review]</a>}]
 
 lappend elements admin {
-    label ""
+    label "[_ acs-kernel.common_Administration]"
     display_template {<if @sessions.admin_p@ true><a href="@sessions.community_url@assessment/asm-admin/one-a?assessment_id=@sessions.assessment_id@">\#acs-kernel.common_Administration\#</a></if>}
 }
 
 lappend elements results {
-	    label ""
+    label "[_ assessment.Results]"
     display_template {<if @sessions.admin_p@ true><a href="@sessions.community_url@assessment/asm-admin/results-users?assessment_id=@sessions.assessment_id@">\#assessment.Results\#</a></if><else></else>}
 	}
 
@@ -144,7 +143,6 @@ template::list::create \
     -multirow sessions \
     -key assessment_id \
     -elements $elements \
-    -main_class narrow \
     -no_data "\#assessment.No_answered_assessments\#"
 
 # get the information of all assessments store in the database
