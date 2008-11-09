@@ -1,5 +1,5 @@
-<if @assessments:rowcount@ gt 0 or @sessions:rowcount@ gt 0>
-  <if @shaded_p@ false>
+<if @shaded_p@ false>
+  <if @assessments:rowcount@ gt 0 or @sessions:rowcount@ gt 0>
     <if @assessments:rowcount@ gt 0>
       <b>#assessment.Open_Assessments#</b>
       <listtemplate name="assessments"></listtemplate>
@@ -11,9 +11,9 @@
     </if>
   </if>
   <else>
-    #new-portal.when_portlet_shaded#
+    &nbsp;  
   </else>
 </if>
 <else>
-  &nbsp;  
+  #new-portal.when_portlet_shaded#
 </else>
