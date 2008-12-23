@@ -13,6 +13,7 @@
 
         <provides url="assessment-portlet" version="2.5.0d1"/>
         <requires url="assessment" version="0.22d7"/>
+        <requires url="new-portal" version="2.5.0d1"/>
 
         <callbacks>
             <callback type="after-install"  proc="apm::assessment_portlet::after_install"/>
