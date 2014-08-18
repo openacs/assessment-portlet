@@ -88,7 +88,7 @@ db_foreach open_asssessments {} {
 	set assessment_url [site_node::get_url -node_id $as_node_id]
 	set old_comm_node_id $comm_node_id
 
-	if {[empty_string_p $password]} {
+	if {$password eq ""} {
 	    append assessment_url [export_vars -base "instructions" {assessment_id}]
 	} else {
 	    append assessment_url [export_vars -base "assessment-password" {assessment_id}]
