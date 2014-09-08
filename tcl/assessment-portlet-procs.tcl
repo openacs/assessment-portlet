@@ -4,7 +4,7 @@ ad_library {
 
     @creation-date Sept 2004
     @author jopez@galileo.edu
-    @cvs_id $Id$
+    @cvs-id $Id$
 
 }
 
