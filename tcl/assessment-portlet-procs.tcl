@@ -354,3 +354,9 @@ ad_proc -private assessment_admin_portlet::unregister_implementations {} {
         -contract_name "portal_datasource" \
         -impl_name "assessment_admin_portlet"
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:
