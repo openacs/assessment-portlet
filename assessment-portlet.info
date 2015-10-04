@@ -9,15 +9,15 @@
     <implements-subsite-p>f</implements-subsite-p>
     <inherit-templates-p>t</inherit-templates-p>
     
-    <version name="2.9.0b1" url="http://openacs.org/repository/download/apm/assessment-portlet-2.9.0b1.apm">
+    <version name="2.9.0b2" url="http://openacs.org/repository/download/apm/assessment-portlet-2.9.0b2.apm">
         <owner url="mailto:jopez@galileo.edu">Jose Pablo Escobedo Del Cid</owner>
         <summary>Portlet for the &quot;new-portal&quot; system for the Assessment package</summary>
-        <release-date>2015-09-25</release-date>
+        <release-date>2015-10-04</release-date>
         <maturity>2</maturity>
 
-        <provides url="assessment-portlet" version="2.9.0b1"/>
-        <requires url="assessment" version="2.9.0b1"/>
-        <requires url="new-portal" version="2.9.0b1"/>
+        <provides url="assessment-portlet" version="2.9.0b2"/>
+        <requires url="assessment" version="2.9.0b2"/>
+        <requires url="new-portal" version="2.9.0b2"/>
 
         <callbacks>
             <callback type="before-uninstall"  proc="apm::assessment_portlet::before_uninstall"/>
