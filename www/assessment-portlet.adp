@@ -1,4 +1,4 @@
-<if @shaded_p@ false>
+<if @shaded_p;literal@ false>
   <if @assessments:rowcount@ gt 0 or @sessions:rowcount@ gt 0>
     <if @assessments:rowcount@ gt 0>
       <strong>#assessment.Open_Assessments#</strong>
