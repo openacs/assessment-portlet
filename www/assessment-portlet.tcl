@@ -7,7 +7,7 @@ ad_page_contract {
     @creation-date Oct 2004
     @cvs_id $Id$
 } {
-    {page_num 0}
+    {page_num:naturalnum,notnull 0}
 } -properties {
 }
 
