@@ -7,7 +7,7 @@ ad_page_contract {
     @creation-date Oct 2004
     @cvs_id $Id$
 } {
-    {page_num 0}
+    {page_num:naturalnum,notnull 0}
 } -properties {
 }
 
@@ -155,3 +155,9 @@ db_multirow -extend { session_url community_url } sessions answered_assessments 
     set session_url "[site_node::get_url -node_id $as_node_id][export_vars -base session {assessment_id}]"
     set old_comm_node_id $comm_node_id
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

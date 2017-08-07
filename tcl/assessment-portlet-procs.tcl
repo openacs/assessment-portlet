@@ -328,7 +328,7 @@ ad_proc -private assessment_portlet::uninstall {} {
 } {
     unregister_implementations
     set ds_id [portal::get_datasource_id assessment_portlet]
-    db_exec_plsql delete_assessments_ds { *SQL* }
+    db_exec_plsql delete_assessments_ds {}
 }
 
 ad_proc -private assessment_admin_portlet::uninstall {} {
@@ -336,7 +336,7 @@ ad_proc -private assessment_admin_portlet::uninstall {} {
 } {
     unregister_implementations
     set ds_id [portal::get_datasource_id assessment_admin_portlet]
-    db_exec_plsql delete_admin_ds { *SQL* }
+    db_exec_plsql delete_admin_ds {}
 }
 
 ad_proc -private assessment_portlet::unregister_implementations {} {
@@ -354,3 +354,9 @@ ad_proc -private assessment_admin_portlet::unregister_implementations {} {
         -contract_name "portal_datasource" \
         -impl_name "assessment_admin_portlet"
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

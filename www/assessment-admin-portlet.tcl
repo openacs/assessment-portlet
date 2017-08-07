@@ -24,3 +24,9 @@ set package_id [lindex $list_of_package_ids 0]
 set url [lindex [site_node::get_url_from_object_id -object_id $package_id] 0]
 
 ad_return_template 
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:
