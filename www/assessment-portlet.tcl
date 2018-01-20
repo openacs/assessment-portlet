@@ -29,7 +29,7 @@ if {!$one_instance_p} {
 lappend elements title \
     [list \
          label "[_ assessment.Title]" \
-         display_template {<a href="@assessments.assessment_url@">@assessments.title@</a><if @assessments.anonymous_p@ eq "t"><br>(#assessment.anonymous#)</if>}]
+         display_template {<a href="@assessments.assessment_url@">@assessments.title@</a><if @assessments.anonymous_p;literal@ true><br>(#assessment.anonymous#)</if>}]
 
 lappend elements status {
     label "[_ assessment.Status]"
@@ -61,12 +61,12 @@ lappend elements session \
 
 lappend elements admin {
     label "[_ acs-kernel.common_Administration]"
-    display_template {<if @assessments.admin_p@ true><a href="@assessments.community_url@assessment/asm-admin/one-a?assessment_id=@assessments.assessment_id@">\#acs-kernel.common_Administration\#</a></if>}
+    display_template {<if @assessments.admin_p;literal@ true><a href="@assessments.community_url@assessment/asm-admin/one-a?assessment_id=@assessments.assessment_id@">\#acs-kernel.common_Administration\#</a></if>}
 }
 
 lappend elements results {
     label "[_ assessment.Results]"
-    display_template {<if @assessments.admin_p@ true><a href="@assessments.community_url@assessment/asm-admin/results-users?assessment_id=@assessments.assessment_id@">\#assessment.Results\#</a></if><else></else>}
+    display_template {<if @assessments.admin_p;literal@ true><a href="@assessments.community_url@assessment/asm-admin/results-users?assessment_id=@assessments.assessment_id@">\#assessment.Results\#</a></if><else></else>}
 	}
 
 # create a list with all open assessments
@@ -129,12 +129,12 @@ lappend elements session \
 
 lappend elements admin {
     label "[_ acs-kernel.common_Administration]"
-    display_template {<if @sessions.admin_p@ true><a href="@sessions.community_url@assessment/asm-admin/one-a?assessment_id=@sessions.assessment_id@">\#acs-kernel.common_Administration\#</a></if>}
+    display_template {<if @sessions.admin_p;literal@ true><a href="@sessions.community_url@assessment/asm-admin/one-a?assessment_id=@sessions.assessment_id@">\#acs-kernel.common_Administration\#</a></if>}
 }
 
 lappend elements results {
     label "[_ assessment.Results]"
-    display_template {<if @sessions.admin_p@ true><a href="@sessions.community_url@assessment/asm-admin/results-users?assessment_id=@sessions.assessment_id@">\#assessment.Results\#</a></if><else></else>}
+    display_template {<if @sessions.admin_p;literal@ true><a href="@sessions.community_url@assessment/asm-admin/results-users?assessment_id=@sessions.assessment_id@">\#assessment.Results\#</a></if><else></else>}
 	}
 
 # create a list with all answered assessments and their sessions
