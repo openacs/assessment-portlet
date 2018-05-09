@@ -18,7 +18,7 @@ set shaded_p $config(shaded_p)
 set list_of_package_ids $config(package_id)
 
 set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]
-set elements {}
+set elements [list]
 if {!$one_instance_p} {
     set elements [list community_name \
                       [list \
@@ -104,7 +104,7 @@ db_foreach open_asssessments {} {
 }
 
 
-set elements {}
+set elements [list]
 if {!$one_instance_p} {
     set elements [list community_name \
 		      [list \
