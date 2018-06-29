@@ -5,7 +5,7 @@ ad_page_contract {
 
     @author jopez@galileo.edu
     @creation-date 2004-10-06
-    @cvs_id $Id$
+    @cvs-id $Id$
 } -properties {
     
 }
