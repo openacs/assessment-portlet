@@ -30,14 +30,16 @@ ad_proc -private assessment_portlet::my_package_key {
 
 
 
-ad_proc -public assessment_portlet::get_pretty_name {
+ad_proc -public assessment_portlet::get_pretty_name {} {
+    Get portlet pretty name.
 } {
     return "#assessment.Assessment#"
 }
 
 
 
-ad_proc -public assessment_portlet::link {
+ad_proc -public assessment_portlet::link {} {
+    Get portlet link (empty).
 } {
     return ""
 }
@@ -78,7 +80,7 @@ ad_proc -public assessment_portlet::remove_self_from_page {
     {-package_id:required}
 } {
     Removes a assessment PE from the given page or the package_id of the
-    assessment package from the portlet if there are others remaining
+    assessment package from the portlet if there are others remaining.
     
     @param portal_id The page to remove self from
     @param package_id
@@ -93,6 +95,8 @@ ad_proc -public assessment_portlet::remove_self_from_page {
 
 ad_proc -public assessment_portlet::show {
     cf
+} {
+    Show assessment portlet.
 } {
     portal::show_proc_helper \
         -package_key [my_package_key] \
@@ -110,6 +114,8 @@ ad_proc -private assessment_admin_portlet::get_my_name {} {
 
 
 ad_proc -public assessment_admin_portlet::get_pretty_name {} {
+    Get admin portlet pretty name.
+} {
     return "#assessment.Assessment_Administration#"
 }
 
@@ -122,6 +128,8 @@ ad_proc -private assessment_admin_portlet::my_package_key {} {
 
 
 ad_proc -public assessment_admin_portlet::link {} {
+    Get admin portlet link (empty).
+} {
     return ""
 }
 
@@ -132,7 +140,7 @@ ad_proc -public assessment_admin_portlet::add_self_to_page {
     {-page_name ""}
     {-package_id:required}
 } {
-    Adds a assessment admin PE to the given portal
+    Adds a assessment admin PE to the given portal.
 
     @param portal_id The page to add self to
     @param package_id The package_id of the assessment package
@@ -150,7 +158,7 @@ ad_proc -public assessment_admin_portlet::add_self_to_page {
 ad_proc -public assessment_admin_portlet::remove_self_from_page {
     {-portal_id:required}
 } {
-    Removes a assessment admin PE from the given page
+    Removes a assessment admin PE from the given page.
 } {
     portal::remove_element \
         -portal_id $portal_id \
@@ -160,6 +168,8 @@ ad_proc -public assessment_admin_portlet::remove_self_from_page {
 
 ad_proc -public assessment_admin_portlet::show {
     cf
+} {
+    Show assessment admin portlet.
 } {
     portal::show_proc_helper \
         -package_key [my_package_key] \
@@ -324,7 +334,7 @@ ad_proc -private assessment_admin_portlet::register_portal_datasource_impl {} {
 }
 
 ad_proc -private assessment_portlet::uninstall {} {
-    Assessment Portlet package uninstall proc
+    Assessment Portlet package uninstall proc.
 } {
     unregister_implementations
     set ds_id [portal::get_datasource_id assessment_portlet]
@@ -332,7 +342,7 @@ ad_proc -private assessment_portlet::uninstall {} {
 }
 
 ad_proc -private assessment_admin_portlet::uninstall {} {
-    Assessment Portlet package uninstall proc
+    Assessment Portlet package uninstall proc.
 } {
     unregister_implementations
     set ds_id [portal::get_datasource_id assessment_admin_portlet]
@@ -340,7 +350,7 @@ ad_proc -private assessment_admin_portlet::uninstall {} {
 }
 
 ad_proc -private assessment_portlet::unregister_implementations {} {
-    Unregister service contract implementations
+    Unregister service contract implementations.
 } {
     acs_sc::impl::delete \
         -contract_name "portal_datasource" \
@@ -348,7 +358,7 @@ ad_proc -private assessment_portlet::unregister_implementations {} {
 }
 
 ad_proc -private assessment_admin_portlet::unregister_implementations {} {
-    Unregister service contract implementations
+    Unregister service contract implementations.
 } {
     acs_sc::impl::delete \
         -contract_name "portal_datasource" \
