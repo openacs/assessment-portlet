@@ -3,7 +3,7 @@
 <queryset>
 <rdbms><type>oracle</type><version>8.1.6</version></rdbms>
 
-<fullquery name="open_asssessments">
+<fullquery name="open_assessments">
 	<querytext>
 	select * from (select cr.item_id as assessment_id, cr.title, cr.description, a.password,
 	       to_char(a.start_time, 'YYYY-MM-DD HH24:MI:SS') as start_time,

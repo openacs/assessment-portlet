@@ -80,7 +80,7 @@ template::list::create \
 # get the information of all open assessments
 template::multirow create assessments assessment_id title description assessment_url community_url community_name anonymous_p in_progress_p completed_p status number_tries admin_p
 set old_comm_node_id 0
-db_foreach open_asssessments {} {
+db_foreach open_assessments {} {
 	if {$comm_node_id == $old_comm_node_id} {
 	    set community_name ""
 	}
