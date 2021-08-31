@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<message_catalog package_key="assessment-portlet" locale="it_IT" charset="ISO-8859-1">
+
+  <msg key="assessment_admin">amministrazione valutazione</msg>
+  <msg key="error_one_assessment">Ci dovrebbe essere solo un&#39;istanza di assessment per scopi amministrativi</msg>
+  <msg key="goto_assessment_admin">Vai alla amministrazione valutazioni</msg>
+  <msg key="goto_assessments_title">Vai a %assessments.title%</msg>
+  <msg key="lt_Is_this_assessment_an">Questa valutazione è anonima?</msg>
+</message_catalog>
