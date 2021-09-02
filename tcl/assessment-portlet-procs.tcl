@@ -53,7 +53,7 @@ ad_proc -public assessment_portlet::add_self_to_page {
     {-force_region ""}
     {-page_name "" }
 } {
-    Adds a assessment PE to the given portal.
+    Adds an assessment PE to the given portal.
     
     @param portal_id The page to add self to
     @param package_id The community with the folder
@@ -79,7 +79,7 @@ ad_proc -public assessment_portlet::remove_self_from_page {
     {-portal_id:required}
     {-package_id:required}
 } {
-    Removes a assessment PE from the given page or the package_id of the
+    Removes an assessment PE from the given page or the package_id of the
     assessment package from the portlet if there are others remaining.
     
     @param portal_id The page to remove self from
@@ -140,7 +140,7 @@ ad_proc -public assessment_admin_portlet::add_self_to_page {
     {-page_name ""}
     {-package_id:required}
 } {
-    Adds a assessment admin PE to the given portal.
+    Adds an assessment admin PE to the given portal.
 
     @param portal_id The page to add self to
     @param package_id The package_id of the assessment package
@@ -158,7 +158,7 @@ ad_proc -public assessment_admin_portlet::add_self_to_page {
 ad_proc -public assessment_admin_portlet::remove_self_from_page {
     {-portal_id:required}
 } {
-    Removes a assessment admin PE from the given page.
+    Removes an assessment admin PE from the given page.
 } {
     portal::remove_element \
         -portal_id $portal_id \
