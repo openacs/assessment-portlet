@@ -12,7 +12,7 @@
     <version name="2.10.0" url="http://openacs.org/repository/download/apm/assessment-portlet-2.10.0.apm">
         <owner url="mailto:jopez@galileo.edu">Jose Pablo Escobedo Del Cid</owner>
         <summary>Portlet for the &quot;new-portal&quot; system for the Assessment package</summary>
-        <release-date>2017-08-06</release-date>
+        <release-date>2021-09-15</release-date>
         <maturity>2</maturity>
 
         <provides url="assessment-portlet" version="2.10.0"/>
