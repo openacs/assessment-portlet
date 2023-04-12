@@ -46,6 +46,10 @@ aa_register_case -procs {
                     [string first "Error in include template" $portlet] >= 0
                 }
 
+                aa_false "No unresolved message keys" {
+                    [string first "MESSAGE KEY MISSING: " $portlet] >= 0
+                }
+
                 aa_true "Portlet contains something" {
                     [string length [string trim $portlet]] > 0
                 }
