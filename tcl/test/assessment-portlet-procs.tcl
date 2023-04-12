@@ -47,7 +47,7 @@ aa_register_case -procs {
                 }
 
                 aa_true "Portlet contains something" {
-                    [string length $portlet] >= 0
+                    [string length [string trim $portlet]] > 0
                 }
             }
         }
