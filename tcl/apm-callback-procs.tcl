@@ -11,14 +11,14 @@ ad_library {
 namespace eval apm::assessment_portlet {}
 namespace eval apm::assessment_admin_portlet {}
 
-ad_proc -public apm::assessment_portlet::after_install {} {
+ad_proc -private apm::assessment_portlet::after_install {} {
     Create the datasources needed by the assessment portlets.
 } {
         assessment_portlet::after_install
         assessment_admin_portlet::after_install
 }
 
-ad_proc -public apm::assessment_portlet::before_uninstall {} {
+ad_proc -private apm::assessment_portlet::before_uninstall {} {
     Assessment Portlet package uninstall proc
 } {
 
